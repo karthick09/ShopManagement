@@ -1,16 +1,24 @@
 public class Account {
-    private final String id;
-    private String password;
+    private final String username;
+    private  String password;
     private AccountStatus status;
 
     public Account(String id, String password,  AccountStatus status) {
-        this.id = id;
+        this.username = id;
         this.password = password;
         this.status = status;
     }
 
     public String getId() {
-        return id;
+        return username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
     }
 
     public String getPassword() {
