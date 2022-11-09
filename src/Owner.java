@@ -1,21 +1,40 @@
 import java.util.ArrayList;
 
 public class Owner {
+    private final String ownerId;
     private static ArrayList<Person> personNameList =new ArrayList<>();
     private static ArrayList<Item> itemList = new ArrayList<>();
     private static ArrayList<Manger> managerList = new ArrayList<>();
     private static ArrayList<ShopWorker> shopWorkerList =new ArrayList<>();
     private static ArrayList<SalesMan> salesManList = new ArrayList<>();
 
+    public Owner(String ownerId) {
+        this.ownerId = ownerId;
+    }
 
-    public static Person getPerson(String name){
-        for (Person p : personNameList) {
-            if (name.equals(p.getName())) {
-                return p;
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+
+    public static Manger getManger(String id){
+        for (Manger m : managerList) {
+            if (id.equals(m.getMangerId())) {
+                return m;
             }
         }
         return null;
     }
+
+    public static SalesMan getSalesMan(String id){
+        for (SalesMan SM : salesManList) {
+            if (id.equals(SM.getSalesManId())) {
+                return SM;
+            }
+        }
+        return null;
+    }
+
 
     public static Item getItem(String id){
         for (Item I : itemList) {
@@ -34,24 +53,24 @@ public class Owner {
 
     void getMangerList(){
         for(Manger m :managerList){
-            System.out.println("manger id :"+m.getMangerId()+"  manger name :"+m.getName());
+            System.out.println("manger id :"+m.getMangerId()+" --manger name :"+m.getName());
         }
     }
 
     void getSaleManList(){
         for(SalesMan sm :salesManList){
-            System.out.println("salesMan id :"+sm.getSalesManId()+" saleMan name :"+sm.getName());
+            System.out.println("salesMan id :"+sm.getSalesManId()+" --saleMan name :"+sm.getName());
         }
     }
 
     void getShopWorkerList(){
         for(ShopWorker sw:shopWorkerList){
-            System.out.println("shopWorker id :"+sw.getShopWorkerId()+" shopWorker name :"+sw.getName());
+            System.out.println("shopWorker id :"+sw.getShopWorkerId()+" --shopWorker name :"+sw.getName());
         }
     }
     void getItemList(){
         for(Item i : itemList){
-            System.out.println("item id :"+i.getItemId()+" item name :"+i.getItemName()+" item price :"+i.getItemPrice()+" item quantity :"+i.getQuantity());
+            System.out.println("item id :"+i.getItemId()+" --item name :"+i.getItemName()+" --item price :"+i.getItemPrice()+" --item quantity :"+i.getQuantity());
         }
     }
     void addPerson (Person person){
@@ -73,16 +92,6 @@ public class Owner {
     public static boolean getLoginDetails(String id,String password){
         return true;
     }
-    public static boolean addItem(Item item,Person person){
-        if(person instanceof Manger) {
-            itemList.add(item);
-            return true;
-        }
-        else{
-            System.out.println("Access denied");
-            return false;
-        }
-    }
     void addItem(Item item){
         itemList.add(item);
     }
@@ -96,8 +105,19 @@ public class Owner {
             System.out.println("Item not found ");
         }
     }
-    public static boolean deleteItem(String id,Person person){
-        if(person instanceof Manger){
+    public static boolean addItem(Item item,String idNo){
+        if((managerList.contains(getManger(idNo))) || idNo.equals("owner")) {
+            itemList.add(item);
+            return true;
+        }
+        else{
+            System.out.println("Access denied");
+            return false;
+        }
+    }
+
+    public static boolean deleteItem(String id,String idNo){
+        if((managerList.contains(getManger(idNo))) || idNo.equals("owner")){
             Item item;
             item=getItem(id);
             if(item != null){
@@ -121,11 +141,11 @@ public class Owner {
         itemList.remove(item);
         itemList.add(item1);
     }
-     public static void sales(Person person,String id,float quantity){
-        if((person instanceof Manger) || (person instanceof SalesMan) ){
+     public static void sales(String idNo,String itemId,float quantity){
+        if((salesManList.contains(getSalesMan(idNo))) || (managerList.contains(getManger(idNo)))){
             Item item;
             float updateQuantity;
-            item=getItem(id);
+            item=getItem(itemId);
             if(item!= null){
                 if (quantity< item.getQuantity()){
                     float price;
@@ -147,8 +167,8 @@ public class Owner {
             System.out.println("access denied");
         }
      }
-     public static void purchase(Person person,String id,float quantity){
-        if(person instanceof Manger){
+     public static void purchase(Manger manger,String id,float quantity){
+        if(managerList.contains(manger)){
             Item item;
             float updateQuantity;
             item= getItem(id);
@@ -164,5 +184,6 @@ public class Owner {
             System.out.println("access denied");
         }
      }
+
 
 }

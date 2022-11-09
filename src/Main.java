@@ -4,13 +4,16 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         do{
-            String username,password;
+            String username,password,idNo ;
             int choice1,choice2;
             System.out.println("1.owner login \n2.manger login \n3.salesman \n4.exit");
             choice1= sc.nextInt();
             if(choice1==4){
                 System.exit(0);
             }
+            Login login =new Login();
+            System.out.println("enter the id ");
+            idNo= sc.next();
             System.out.println("enter the username");
             username=sc.next();
             System.out.println("enter the password");
@@ -18,7 +21,7 @@ public class Main {
             switch (choice1){
                 case 1:
                     if(username.equals("abc") && password.equals("123")){
-                        Owner owner =new Owner();
+                        Owner owner =new Owner(idNo);
                         System.out.println("1.Add manager \n2.Add salesperson \n3.Add shopWorker \n4.showList \n5.Add item \n6.Delete item");
                         choice2= sc.nextInt();
                         String userId = "",pass="",name="",email="",phone="";
@@ -96,7 +99,16 @@ public class Main {
                     }
                     break;
                 case 2:
+                    if(login.login(username,password)){
+                        Manger manger;
+                        manger = Owner.getManger(idNo);
+                        System.out.println("1.showList \n2.Add item \n3.Delete item \n4.sales \n5.purchase");
+                        choice2= sc.nextInt();
+                        switch (choice2){
+                            case 1:
 
+                        }
+                    }
             }
 
         }while(true);
