@@ -141,8 +141,8 @@ public class Owner {
         itemList.remove(item);
         itemList.add(item1);
     }
-     public static void sales(String idNo,String itemId,float quantity){
-        if((salesManList.contains(getSalesMan(idNo))) || (managerList.contains(getManger(idNo)))){
+     public static void sales(String personIdNo,String itemId,float quantity){
+        if((salesManList.contains(getSalesMan(personIdNo))) || (managerList.contains(getManger(personIdNo)))){
             Item item;
             float updateQuantity;
             item=getItem(itemId);
