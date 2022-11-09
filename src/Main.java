@@ -19,22 +19,11 @@ public class Main {
                 case 1:
                     if(username.equals("abc") && password.equals("123")){
                         Owner owner =new Owner();
-                        System.out.println("1.Add manager \n2.Add salesperson \n3.Add shopWorker \n4.showList");
+                        System.out.println("1.Add manager \n2.Add salesperson \n3.Add shopWorker \n4.showList \n5.Add item \n6.Delete item");
                         choice2= sc.nextInt();
-                        if(choice2==4){
-                            System.out.println("1.person list \n2.manger list \n3.salesman list \n4.shopWorker list");
-                            int ch=sc.nextInt();
-                            switch (ch) {
-                                case 1 -> owner.personList();
-                                case 2 -> owner.getMangerList();
-                                case 3 -> owner.getSaleManList();
-                                case 4 -> owner.getShopWorkerList();
-                                default -> System.out.println("invalid choice");
-                            }
-                        }
-                        else{
+                        String userId = "",pass="",name="",email="",phone="";
+                        if(choice2<4){
                             System.out.println("enter the person details");
-                            String userId,pass,name,email,phone;
                             System.out.println("enter the username");
                             userId=sc.next();
                             System.out.println("enter the password");
@@ -45,31 +34,65 @@ public class Main {
                             email=sc.next();
                             System.out.println("enter the phone");
                             phone= sc.next();
-                            Account account =new Account(userId,pass,AccountStatus.ACTIVE);
-                            Person person = new Person(name,email,phone,account);
-                            switch (choice2) {
-                                case 1 -> {
-                                    System.out.println("enter the manager id");
-                                    String mId = sc.next();
-                                    owner.addPerson(person);
-                                    owner.assignManger(person, mId);
-                                }
-                                case 2 -> {
-                                    System.out.println("enter the salesperson id ");
-                                    String salePersonId = sc.next();
-                                    owner.addPerson(person);
-                                    owner.assignSalesMan(person, salePersonId);
-                                }
-                                case 3 -> {
-                                    System.out.println("enter the salesperson id ");
-                                    String SWId = sc.next();
-                                    owner.addPerson(person);
-                                    owner.assignShopWorker(person, SWId);
-                                }
-                                default -> System.out.println("invalid choice");
-                            }
                         }
-
+                        Account account =new Account(userId,pass,AccountStatus.ACTIVE);
+                        Person person = new Person(name,email,phone,account);
+                        switch (choice2) {
+                            case 1 -> {
+                                System.out.println("enter the manager id");
+                                String mId = sc.next();
+                                owner.addPerson(person);
+                                owner.assignManger(person, mId);
+                            }
+                            case 2 -> {
+                                System.out.println("enter the salesperson id ");
+                                String salePersonId = sc.next();
+                                owner.addPerson(person);
+                                owner.assignSalesMan(person, salePersonId);
+                            }
+                            case 3 -> {
+                                System.out.println("enter the salesperson id ");
+                                String SWId = sc.next();
+                                owner.addPerson(person);
+                                owner.assignShopWorker(person, SWId);
+                            }
+                            case 4 ->{
+                                System.out.println("1.person list \n2.manger list \n3.salesman list \n4.shopWorker list\n5.item list");
+                                int ch=sc.nextInt();
+                                switch (ch) {
+                                    case 1 -> owner.personList();
+                                    case 2 -> owner.getMangerList();
+                                    case 3 -> owner.getSaleManList();
+                                    case 4 -> owner.getShopWorkerList();
+                                    case 5 -> owner.getItemList();
+                                    default -> System.out.println("invalid choice");
+                                }
+                            }
+                            case 5 -> {
+                                String iName,iId;
+                                float price,quantity;
+                                System.out.println("enter the item id");
+                                iId= sc.next();
+                                System.out.println("enter the item name");
+                                iName=sc.next();
+                                System.out.println("enter the price");
+                                price=sc.nextFloat();
+                                System.out.println("enter the quantity");
+                                quantity= sc.nextFloat();
+                                Item item= new Item(iId,iName,price,quantity);
+                                owner.addItem(item);
+                            }
+                            case 6 -> {
+                                String id;
+                                System.out.println("enter the item id");
+                                id= sc.next();
+                                owner.removeItem(id);
+                            }
+                            default -> System.out.println("invalid choice");
+                        }
+                    }
+                    else {
+                        System.out.println("invalid username and password");
                     }
                     break;
                 case 2:

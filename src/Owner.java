@@ -28,7 +28,7 @@ public class Owner {
 
     void personList(){
         for (Person p : personNameList){
-            System.out.println(p.getName());
+            System.out.println("person name :"+p.getName());
         }
     }
 
@@ -47,6 +47,11 @@ public class Owner {
     void getShopWorkerList(){
         for(ShopWorker sw:shopWorkerList){
             System.out.println("shopWorker id :"+sw.getShopWorkerId()+" shopWorker name :"+sw.getName());
+        }
+    }
+    void getItemList(){
+        for(Item i : itemList){
+            System.out.println("item id :"+i.getItemId()+" item name :"+i.getItemName()+" item price :"+i.getItemPrice()+" item quantity :"+i.getQuantity());
         }
     }
     void addPerson (Person person){
@@ -74,15 +79,37 @@ public class Owner {
             return true;
         }
         else{
+            System.out.println("Access denied");
             return false;
         }
     }
-    public static boolean deleteItem(Item item,Person person){
-        if(person instanceof Manger){
+    void addItem(Item item){
+        itemList.add(item);
+    }
+    void removeItem(String id){
+        Item item;
+        item=getItem(id);
+        if(item != null){
             itemList.remove(item);
-            return true;
+        }
+        else {
+            System.out.println("Item not found ");
+        }
+    }
+    public static boolean deleteItem(String id,Person person){
+        if(person instanceof Manger){
+            Item item;
+            item=getItem(id);
+            if(item != null){
+                itemList.remove(item);
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else{
+            System.out.println("access denied");
             return false;
         }
     }
