@@ -1,20 +1,12 @@
 import java.util.ArrayList;
 
 public class Owner {
-    private final String ownerId;
-    private static ArrayList<Person> personNameList =new ArrayList<>();
-    private static ArrayList<Item> itemList = new ArrayList<>();
-    private static ArrayList<Manger> managerList = new ArrayList<>();
-    private static ArrayList<ShopWorker> shopWorkerList =new ArrayList<>();
-    private static ArrayList<SalesMan> salesManList = new ArrayList<>();
+    private static final ArrayList<Person> personNameList =new ArrayList<>();
+    private static final ArrayList<Item> itemList = new ArrayList<>();
+    private static final ArrayList<Manger> managerList = new ArrayList<>();
+    private static final ArrayList<ShopWorker> shopWorkerList =new ArrayList<>();
+    private static final ArrayList<SalesMan> salesManList = new ArrayList<>();
 
-    public Owner(String ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public String getOwnerId() {
-        return ownerId;
-    }
 
 
     public static Manger getManger(String id){
@@ -68,7 +60,7 @@ public class Owner {
             System.out.println("shopWorker id :"+sw.getShopWorkerId()+" --shopWorker name :"+sw.getName());
         }
     }
-    void getItemList(){
+    static void getItemList(){
         for(Item i : itemList){
             System.out.println("item id :"+i.getItemId()+" --item name :"+i.getItemName()+" --item price :"+i.getItemPrice()+" --item quantity :"+i.getQuantity());
         }
@@ -90,47 +82,38 @@ public class Owner {
     }
 
     public static boolean getLoginDetails(String id,String password){
-        return true;
-    }
-    void addItem(Item item){
-        itemList.add(item);
-    }
-    void removeItem(String id){
-        Item item;
-        item=getItem(id);
-        if(item != null){
-            itemList.remove(item);
+        for(Person p :personNameList){
+            Account account =p.getAccount();
+            if(id.equals(account.getId()) && password.equals(account.getPassword())){
+                return true;
+            }
         }
-        else {
-            System.out.println("Item not found ");
-        }
+        return false;
+
     }
-    public static boolean addItem(Item item,String idNo){
+
+    public static void addItem(Item item,String idNo){
         if((managerList.contains(getManger(idNo))) || idNo.equals("owner")) {
             itemList.add(item);
-            return true;
         }
         else{
             System.out.println("Access denied");
-            return false;
         }
     }
 
-    public static boolean deleteItem(String id,String idNo){
+    public static void deleteItem(String id,String idNo){
         if((managerList.contains(getManger(idNo))) || idNo.equals("owner")){
             Item item;
             item=getItem(id);
             if(item != null){
                 itemList.remove(item);
-                return true;
             }
             else {
-                return false;
+                System.out.println("item not found");
             }
         }
         else{
             System.out.println("access denied");
-            return false;
         }
     }
 
@@ -167,8 +150,8 @@ public class Owner {
             System.out.println("access denied");
         }
      }
-     public static void purchase(Manger manger,String id,float quantity){
-        if(managerList.contains(manger)){
+     public static void purchase(String personId,String id,float quantity){
+        if(managerList.contains(getManger(personId))){
             Item item;
             float updateQuantity;
             item= getItem(id);

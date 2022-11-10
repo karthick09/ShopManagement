@@ -21,7 +21,7 @@ public class Main {
             switch (choice1){
                 case 1:
                     if(username.equals("abc") && password.equals("123")){
-                        Owner owner =new Owner(idNo);
+                        Owner owner =new Owner();
                         System.out.println("1.Add manager \n2.Add salesperson \n3.Add shopWorker \n4.showList \n5.Add item \n6.Delete item");
                         choice2= sc.nextInt();
                         String userId = "",pass="",name="",email="",phone="";
@@ -67,7 +67,7 @@ public class Main {
                                     case 2 -> owner.getMangerList();
                                     case 3 -> owner.getSaleManList();
                                     case 4 -> owner.getShopWorkerList();
-                                    case 5 -> owner.getItemList();
+                                    case 5 -> Owner.getItemList();
                                     default -> System.out.println("invalid choice");
                                 }
                             }
@@ -83,13 +83,13 @@ public class Main {
                                 System.out.println("enter the quantity");
                                 quantity= sc.nextFloat();
                                 Item item= new Item(iId,iName,price,quantity);
-                                owner.addItem(item);
+                                Owner.addItem(item,idNo);
                             }
                             case 6 -> {
-                                String id;
+                                String iId;
                                 System.out.println("enter the item id");
-                                id= sc.next();
-                                owner.removeItem(id);
+                                iId= sc.next();
+                                Owner.deleteItem(iId,idNo);
                             }
                             default -> System.out.println("invalid choice");
                         }
@@ -102,11 +102,77 @@ public class Main {
                     if(login.login(username,password)){
                         Manger manger;
                         manger = Owner.getManger(idNo);
-                        System.out.println("1.showList \n2.Add item \n3.Delete item \n4.sales \n5.purchase");
+                        String itemId;
+                        float quantity;
+                        System.out.println("1.showItemList \n2.Add item \n3.Delete item \n4.sales \n5.purchase");
                         choice2= sc.nextInt();
-                        switch (choice2){
-                            case 1:
-
+                        switch (choice2) {
+                            case 1 -> Owner.getItemList();
+                            case 2 -> {
+                                String iName;
+                                float price;
+                                System.out.println("enter the item id");
+                                itemId = sc.next();
+                                System.out.println("enter the item name");
+                                iName = sc.next();
+                                System.out.println("enter the price");
+                                price = sc.nextFloat();
+                                System.out.println("enter the quantity");
+                                quantity = sc.nextFloat();
+                                Item item = new Item(itemId, iName, price, quantity);
+                                if (manger != null) {
+                                    Owner.addItem(item, manger.getMangerId());
+                                }
+                            }
+                            case 3 -> {
+                                System.out.println("enter the item id");
+                                itemId = sc.next();
+                                if (manger != null) {
+                                    Owner.deleteItem(itemId, manger.getMangerId());
+                                }
+                            }
+                            case 4 -> {
+                                System.out.println("enter the item no ");
+                                itemId = sc.next();
+                                System.out.println("enter the no of quantity");
+                                quantity=sc.nextFloat();
+                                if (manger != null) {
+                                    Owner.sales(manger.getMangerId(),itemId,quantity);
+                                }
+                            }
+                            case 5 -> {
+                                System.out.println("1.To update item \n2.new item");
+                                int ch= sc.nextInt();
+                                if(ch==1){
+                                    System.out.println("enter the item id");
+                                    itemId= sc.next();
+                                    System.out.println("enter the count to add");
+                                    quantity= sc.nextFloat();
+                                    if (manger != null) {
+                                        Owner.purchase(manger.getMangerId(),itemId,quantity);
+                                    }
+                                }
+                                else if(ch==2){
+                                    String iName;
+                                    float price;
+                                    System.out.println("enter the item id");
+                                    itemId = sc.next();
+                                    System.out.println("enter the item name");
+                                    iName = sc.next();
+                                    System.out.println("enter the price");
+                                    price = sc.nextFloat();
+                                    System.out.println("enter the quantity");
+                                    quantity = sc.nextFloat();
+                                    Item item = new Item(itemId, iName, price, quantity);
+                                    if (manger != null) {
+                                        Owner.addItem(item, manger.getMangerId());
+                                    }
+                                }
+                                else {
+                                    System.out.println("invalid choice");
+                                }
+                            }
+                            default -> System.out.println("invalid choice");
                         }
                     }
             }
