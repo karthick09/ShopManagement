@@ -25,7 +25,4 @@ public class Account {
         return password;
     }
 
-    public boolean resetPassword(){
-        return true;
-    }
 }

@@ -23,9 +23,6 @@ public class Person {
         this.phone = phone;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 
     public String getEmail() {
         return email;
