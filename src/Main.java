@@ -175,6 +175,29 @@ public class Main {
                             default -> System.out.println("invalid choice");
                         }
                     }
+                    break;
+                case 3:
+                    if(login.login(username,password)){
+                        SalesMan salesMan;
+                        String itemId;
+                        float quantity;
+                        salesMan=Owner.getSalesMan(idNo);
+                        System.out.println("1.view list \n2.sales");
+                        choice2= sc.nextInt();
+                        switch (choice2) {
+                            case 1 -> Owner.getItemList();
+                            case 2 -> {
+                                System.out.println("enter the item no ");
+                                itemId = sc.next();
+                                System.out.println("enter the no of quantity");
+                                quantity = sc.nextFloat();
+                                if (salesMan != null) {
+                                    Owner.sales(salesMan.getSalesManId(), itemId, quantity);
+                                }
+                            }
+                            default -> System.out.println("invalid choice");
+                        }
+                    }
             }
 
         }while(true);
