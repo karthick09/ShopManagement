@@ -18,6 +18,20 @@ public class Owner {
         return null;
     }
 
+    public static boolean checkUserName(String username){
+        boolean flag=true;
+        Account account;
+        for(Person p :personNameList){
+            account=p.getAccount();
+            if(account.getId().equals(username)){
+                System.out.println("User name already exist!");
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
+
     public static SalesMan getSalesMan(String id){
         for (SalesMan SM : salesManList) {
             if (id.equals(SM.getSalesManId())) {
