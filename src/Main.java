@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
     static String validateName()
@@ -25,6 +26,26 @@ public class Main {
             stringLength=string.length();
             value=(stringLength>=5);
         }while (!value||!isAlphabet);
+        return string;
+    }
+    static String validateEmail()
+    {
+        String string;
+        boolean isEmail=true;
+        do{
+            if(!isEmail)
+            {
+                System.out.println("enter valid email");
+            }
+            Scanner scanner=new Scanner(System.in);
+            string=scanner.nextLine();
+            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                    "[a-zA-Z0-9_+&*-]+)*@" +
+                    "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                    "A-Z]{2,7}$";
+            Pattern pat = Pattern.compile(emailRegex);
+            isEmail=pat.matcher(string).matches();
+        }while (!isEmail);
         return string;
     }
     static String validateUserName()
@@ -164,7 +185,7 @@ public class Main {
                                 System.out.println("enter the name ");
                                 name = validateName();
                                 System.out.println("enter the email");
-                                email = sc.next();
+                                email = validateEmail();
                                 System.out.println("enter the phone");
                                 phone = validatePhoneNumber();
                             }
@@ -275,7 +296,7 @@ public class Main {
                                 }
                                 case 5 -> {
                                     System.out.println("1.To update item \n2.new item");
-                                    int ch= sc.nextInt();
+                                    int ch= validateInteger();
                                     if(ch==1){
                                         System.out.println("enter the item id");
                                         itemId= sc.next();
