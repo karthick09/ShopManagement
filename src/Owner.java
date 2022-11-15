@@ -1,4 +1,8 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+
 
 public class Owner {
     private static final ArrayList<Person> personNameList =new ArrayList<>();
@@ -6,6 +10,8 @@ public class Owner {
     private static final ArrayList<Manger> managerList = new ArrayList<>();
     private static final ArrayList<ShopWorker> shopWorkerList =new ArrayList<>();
     private static final ArrayList<SalesMan> salesManList = new ArrayList<>();
+    private static final HashMap<String, Float> salesList = new HashMap<String, Float>();
+    private static final HashMap<String, Float> purchaseList = new HashMap<String, Float>();
 
 
 
@@ -109,6 +115,8 @@ public class Owner {
     public static void addItem(Item item,String idNo){
         if((managerList.contains(getManger(idNo))) || idNo.equals("owner")) {
             itemList.add(item);
+            salesList.put(item.getItemId(), (float) 0);
+            purchaseList.put(item.getItemId(),item.getQuantity());
         }
         else{
             System.out.println("Access denied");
@@ -149,6 +157,9 @@ public class Owner {
                     System.out.println("the total amount rs:"+price);
                     updateQuantity= item.getQuantity()-quantity;
                     updateItem(updateQuantity,item);
+                    float value=salesList.get(itemId);
+                    value=value+quantity;
+                    salesList.put(itemId,value);
                 }
                 else {
                     System.out.println("insufficient stock");
@@ -171,6 +182,9 @@ public class Owner {
             if(item != null){
                 updateQuantity= item.getQuantity()+quantity;
                 updateItem(updateQuantity,item);
+                float value = purchaseList.get(id);
+                value=value+quantity;
+                purchaseList.put(id,value);
             }
             else {
                 System.out.println("item not found");
@@ -181,5 +195,60 @@ public class Owner {
         }
      }
 
-
+     float salary(String empId,String designation){
+        float salary;
+         if(designation.equals("manager")){
+             Manger manger=getManger(empId);
+             if (manger != null) {
+                 LocalDate doj=manger.getDateOfJoin();
+                 LocalDate presentDate=LocalDate.now();
+                 //long noOfDays=ChronoUnit.DAYS.between(doj,presentDate);
+                 long noOfDays=30;
+                 salary=(float)noOfDays/30;
+                 salary=salary*20000;
+                 salary=Math.round(salary);
+                 return salary;
+             }
+             else {
+                 System.out.println("manager not found");
+                 return -1;
+             }
+         }
+         else if(designation.equals("salesman")){
+             SalesMan salesMan=getSalesMan(empId);
+             if(salesMan != null){
+                 LocalDate doj=salesMan.getDateOfJoin();
+                 LocalDate presentDate=LocalDate.now();
+                 //long noOfDays=ChronoUnit.DAYS.between(doj,presentDate);
+                 long noOfDays=30;
+                 salary=(float)noOfDays/30;
+                 salary=salary*15000;
+                 salary=Math.round(salary);
+                 return salary;
+             }
+             else {
+                 System.out.println("salesman not found");
+                 return -1;
+             }
+         }
+         else {
+             System.out.println("designation not found ");
+         }
+         return -1;
+     }
+     void turnover(int choice){
+        if(choice==1){
+            for (Map.Entry<String, Float> entry : salesList.entrySet()) {
+                System.out.println("item id :"+entry.getKey()+" total sales count "+entry.getValue());
+            }
+        }
+        else if (choice==2){
+            for (Map.Entry<String, Float> entry : purchaseList.entrySet()) {
+                System.out.println("item id :"+entry.getKey()+" total purchase count "+entry.getValue());
+            }
+        }
+        else {
+            System.out.println("invalid choice");
+        }
+     }
 }
