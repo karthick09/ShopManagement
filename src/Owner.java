@@ -10,8 +10,8 @@ public class Owner {
     private static final ArrayList<Manger> managerList = new ArrayList<>();
     private static final ArrayList<ShopWorker> shopWorkerList =new ArrayList<>();
     private static final ArrayList<SalesMan> salesManList = new ArrayList<>();
-    private static final HashMap<String, Float> salesList = new HashMap<String, Float>();
-    private static final HashMap<String, Float> purchaseList = new HashMap<String, Float>();
+    private static final HashMap<String, Float> salesList = new HashMap<>();
+    private static final HashMap<String, Float> purchaseList = new HashMap<>();
 
 
 
@@ -202,8 +202,7 @@ public class Owner {
              if (manger != null) {
                  LocalDate doj=manger.getDateOfJoin();
                  LocalDate presentDate=LocalDate.now();
-                 //long noOfDays=ChronoUnit.DAYS.between(doj,presentDate);
-                 long noOfDays=30;
+                 long noOfDays=ChronoUnit.DAYS.between(doj,presentDate);
                  salary=(float)noOfDays/30;
                  salary=salary*20000;
                  salary=Math.round(salary);
@@ -219,8 +218,7 @@ public class Owner {
              if(salesMan != null){
                  LocalDate doj=salesMan.getDateOfJoin();
                  LocalDate presentDate=LocalDate.now();
-                 //long noOfDays=ChronoUnit.DAYS.between(doj,presentDate);
-                 long noOfDays=30;
+                 long noOfDays=ChronoUnit.DAYS.between(doj,presentDate);
                  salary=(float)noOfDays/30;
                  salary=salary*15000;
                  salary=Math.round(salary);
