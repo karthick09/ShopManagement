@@ -237,12 +237,25 @@ public class Owner {
      void turnover(int choice){
         if(choice==1){
             for (Map.Entry<String, Float> entry : salesList.entrySet()) {
-                System.out.println("item id :"+entry.getKey()+" total sales count "+entry.getValue());
+                Item item=getItem(entry.getKey());
+                if (item != null) {
+                    System.out.println("item id :"+entry.getKey()+"item name :"+item.getItemName()+" total sales count "+entry.getValue());
+                }
+                else{
+                    System.out.println("item id :"+entry.getKey()+" total sales count "+entry.getValue());
+                }
             }
         }
         else if (choice==2){
             for (Map.Entry<String, Float> entry : purchaseList.entrySet()) {
-                System.out.println("item id :"+entry.getKey()+" total purchase count "+entry.getValue());
+                Item item=getItem(entry.getKey());
+                if (item != null) {
+                    System.out.println("item id :"+entry.getKey()+"item name:"+item.getItemName()+" total purchase count "+entry.getValue());
+                }
+                else {
+                    System.out.println("item id :"+entry.getKey()+" total purchase count "+entry.getValue());
+
+                }
             }
         }
         else {

@@ -162,15 +162,14 @@ public class Main {
                 System.exit(0);
             }
             Login login =new Login();
-            System.out.println("enter the id ");
-            idNo= sc.next();
-            System.out.println("enter the username");
-            username=sc.next();
-            System.out.println("enter the password");
-            password= sc.next();
-            switch (choice1){
-                case 1:
-                    if(username.equals("abc") && password.equals("123")) {
+            switch (choice1) {
+                case 1 -> {
+                    idNo = "owner";
+                    System.out.println("enter the username");
+                    username = sc.next();
+                    System.out.println("enter the password");
+                    password = sc.next();
+                    if (username.equals("abc") && password.equals("123")) {
                         do {
                             Owner owner = new Owner();
                             System.out.println("1.Add manager \n2.Add salesperson \n3.Add shopWorker \n4.showList \n5.Add item \n6.Delete item\n7.salary for employee\n8.turnover");
@@ -243,43 +242,48 @@ public class Main {
                                     Owner.deleteItem(iId, idNo);
                                 }
                                 case 7 -> {
-                                    String eId,designation;
+                                    String eId, designation;
                                     System.out.println("enter the employee id");
-                                    eId= sc.next();
+                                    eId = sc.next();
                                     System.out.println("enter the employee designation");
-                                    designation=sc.next();
-                                    float salary= owner.salary(eId,designation);
-                                    if(salary!=-1){
-                                        System.out.println("salary of the emp is :"+salary);
+                                    designation = sc.next();
+                                    float salary = owner.salary(eId, designation);
+                                    if (salary != -1) {
+                                        System.out.println("salary of the emp is :" + salary);
                                     }
                                 }
                                 case 8 -> {
                                     System.out.println("1.total sales\n2.total purchase");
-                                    int choice=validateInteger();
+                                    int choice = validateInteger();
                                     owner.turnover(choice);
                                 }
                                 default -> System.out.println("invalid choice");
                             }
                             System.out.println("want to continue press 1");
-                        } while (sc.nextInt()==1);
+                        } while (sc.nextInt() == 1);
+                    } else {
+                        System.out.println("invalid username and password");
                     }
-                    else {
-                            System.out.println("invalid username and password");
-                    }
-                    break;
-                case 2:
-                    if(login.login(username,password)){
+                }
+                case 2 -> {
+                    System.out.println("enter the manager id ");
+                    idNo = sc.next();
+                    System.out.println("enter the username");
+                    username = sc.next();
+                    System.out.println("enter the password");
+                    password = sc.next();
+                    if (login.login(username, password)) {
                         Manger manger;
                         manger = Owner.getManger(idNo);
-                        if(manger == null){
+                        if (manger == null) {
                             System.out.println("manager not found");
                             break;
                         }
                         String itemId;
                         float quantity;
-                        do{
+                        do {
                             System.out.println("1.showItemList \n2.Add item \n3.Delete item \n4.sales \n5.purchase");
-                            choice2= validateInteger();
+                            choice2 = validateInteger();
                             switch (choice2) {
                                 case 1 -> Owner.getItemList();
                                 case 2 -> {
@@ -305,20 +309,19 @@ public class Main {
                                     System.out.println("enter the item no ");
                                     itemId = sc.next();
                                     System.out.println("enter the no of quantity");
-                                    quantity=validateFloat();
-                                    Owner.sales(manger.getMangerId(),itemId,quantity);
+                                    quantity = validateFloat();
+                                    Owner.sales(manger.getMangerId(), itemId, quantity);
                                 }
                                 case 5 -> {
                                     System.out.println("1.To update item \n2.new item");
-                                    int ch= validateInteger();
-                                    if(ch==1){
+                                    int ch = validateInteger();
+                                    if (ch == 1) {
                                         System.out.println("enter the item id");
-                                        itemId= sc.next();
+                                        itemId = sc.next();
                                         System.out.println("enter the count to add");
-                                        quantity= validateFloat();
-                                        Owner.purchase(manger.getMangerId(),itemId,quantity);
-                                    }
-                                    else if(ch==2){
+                                        quantity = validateFloat();
+                                        Owner.purchase(manger.getMangerId(), itemId, quantity);
+                                    } else if (ch == 2) {
                                         String iName;
                                         float price;
                                         System.out.println("enter the item id");
@@ -331,33 +334,37 @@ public class Main {
                                         quantity = validateFloat();
                                         Item item = new Item(itemId, iName, price, quantity);
                                         Owner.addItem(item, manger.getMangerId());
-                                    }
-                                    else {
+                                    } else {
                                         System.out.println("invalid choice");
                                     }
                                 }
                                 default -> System.out.println("invalid choice");
                             }
                             System.out.println("want to continue press 1");
-                        }while (sc.nextInt()==1);
-                    }
-                    else {
+                        } while (sc.nextInt() == 1);
+                    } else {
                         System.out.println("invalid username or password");
                     }
-                    break;
-                case 3:
-                    if(login.login(username,password)){
+                }
+                case 3 -> {
+                    System.out.println("enter the salesman id ");
+                    idNo = sc.next();
+                    System.out.println("enter the username");
+                    username = sc.next();
+                    System.out.println("enter the password");
+                    password = sc.next();
+                    if (login.login(username, password)) {
                         SalesMan salesMan;
                         String itemId;
                         float quantity;
-                        salesMan=Owner.getSalesMan(idNo);
-                        if(salesMan == null){
+                        salesMan = Owner.getSalesMan(idNo);
+                        if (salesMan == null) {
                             System.out.println("salesman not found ");
                             break;
                         }
-                        do{
+                        do {
                             System.out.println("1.view list \n2.sales");
-                            choice2= validateInteger();
+                            choice2 = validateInteger();
                             switch (choice2) {
                                 case 1 -> Owner.getItemList();
                                 case 2 -> {
@@ -370,15 +377,16 @@ public class Main {
                                 default -> System.out.println("invalid choice");
                             }
                             System.out.println("want to continue press 1");
-                        }while (sc.nextInt()==1);
-                    }
-                    else {
+                        } while (sc.nextInt() == 1);
+                    } else {
                         System.out.println("invalid username or password");
                     }
-                    break;
-                default:
-                    System.out.println("invalid choice");
+                }
+                default -> System.out.println("invalid choice");
             }
+
         }while(true);
+
+
     }
 }
