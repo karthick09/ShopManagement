@@ -1,7 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
 public class Main {
     static String validateName()
     {
@@ -22,7 +21,6 @@ public class Main {
                 if(!isAlphabet)
                     break;
             }
-
             stringLength=string.length();
             value=(stringLength>=5);
         }while (!value||!isAlphabet);
@@ -65,6 +63,28 @@ public class Main {
             isUserName=Owner.checkUserName(string);
             value=stringLength>=5;
         }while (!isUserName||!value);
+        return string;
+    }
+    static String validateItemName()
+    {
+        String string;
+        boolean isItemName;
+        do{
+            Scanner scanner=new Scanner(System.in);
+            string=scanner.nextLine();
+            isItemName=Owner.checkItemName(string);
+        }while (!isItemName);
+        return string;
+    }
+    static String validateItemId()
+    {
+        String string;
+        boolean isItemId;
+        do{
+            Scanner scanner=new Scanner(System.in);
+            string=scanner.nextLine();
+            isItemId=Owner.checkItemId(string);
+        }while (!isItemId);
         return string;
     }
     public static int validateInteger()
@@ -225,9 +245,9 @@ public class Main {
                                     String iName, iId;
                                     float price, quantity;
                                     System.out.println("enter the item id");
-                                    iId = sc.next();
+                                    iId = validateItemId();
                                     System.out.println("enter the item name");
-                                    iName = sc.next();
+                                    iName = validateItemName();
                                     System.out.println("enter the price");
                                     price = validateFloat();
                                     System.out.println("enter the quantity");
@@ -290,9 +310,9 @@ public class Main {
                                     String iName;
                                     float price;
                                     System.out.println("enter the item id");
-                                    itemId = sc.next();
+                                    itemId = validateItemId();
                                     System.out.println("enter the item name");
-                                    iName = sc.next();
+                                    iName = validateItemName();
                                     System.out.println("enter the price");
                                     price = validateFloat();
                                     System.out.println("enter the quantity");
@@ -325,9 +345,9 @@ public class Main {
                                         String iName;
                                         float price;
                                         System.out.println("enter the item id");
-                                        itemId = sc.next();
+                                        itemId = validateItemId();
                                         System.out.println("enter the item name");
-                                        iName = sc.next();
+                                        iName = validateItemName();
                                         System.out.println("enter the price");
                                         price = validateFloat();
                                         System.out.println("enter the quantity");
@@ -384,9 +404,6 @@ public class Main {
                 }
                 default -> System.out.println("invalid choice");
             }
-
         }while(true);
-
-
     }
 }

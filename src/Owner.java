@@ -37,6 +37,28 @@ public class Owner {
         }
         return flag;
     }
+    public static boolean checkItemName(String itemName){
+        boolean flag=true;
+        for(Item item :itemList){
+            if(item.getItemName().equals(itemName)){
+                System.out.println("item name already exits");
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
+    public static boolean checkItemId(String itemId){
+        boolean flag=true;
+        for(Item item :itemList){
+            if(item.getItemId().equals(itemId)){
+                System.out.println("item id already exits");
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
 
     public static SalesMan getSalesMan(String id){
         for (SalesMan SM : salesManList) {
