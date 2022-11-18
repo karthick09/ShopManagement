@@ -87,6 +87,28 @@ public class Main {
         }while (!isItemId);
         return string;
     }
+    static String validateMId()
+    {
+        String string;
+        boolean isMID;
+        do{
+            Scanner scanner=new Scanner(System.in);
+            string=scanner.nextLine();
+            isMID=Owner.checkMId(string);
+        }while (!isMID);
+        return string;
+    }
+    static String validateSId()
+    {
+        String string;
+        boolean isSID;
+        do{
+            Scanner scanner=new Scanner(System.in);
+            string=scanner.nextLine();
+            isSID=Owner.checkSId(string);
+        }while (!isSID);
+        return string;
+    }
     public static int validateInteger()
     {
         boolean flag;
@@ -213,18 +235,18 @@ public class Main {
                             switch (choice2) {
                                 case 1 -> {
                                     System.out.println("enter the manager id");
-                                    String mId = sc.next();
+                                    String mId = validateMId();
                                     owner.addPerson(person);
                                     owner.assignManger(person, mId);
                                 }
                                 case 2 -> {
                                     System.out.println("enter the salesperson id ");
-                                    String salePersonId = sc.next();
+                                    String salePersonId = validateSId();
                                     owner.addPerson(person);
                                     owner.assignSalesMan(person, salePersonId);
                                 }
                                 case 3 -> {
-                                    System.out.println("enter the salesperson id ");
+                                    System.out.println("enter the shop worker id ");
                                     String SWId = sc.next();
                                     owner.addPerson(person);
                                     owner.assignShopWorker(person, SWId);

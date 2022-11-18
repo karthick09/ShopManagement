@@ -60,6 +60,30 @@ public class Owner {
         return flag;
     }
 
+    public static boolean checkMId(String MID){
+        boolean flag=true;
+        for(Manger manger :managerList){
+            if(manger.getMangerId().equals(MID)){
+                System.out.println("manager id already exits");
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static boolean checkSId(String SID){
+        boolean flag=true;
+        for(SalesMan salesMan :salesManList){
+            if(salesMan.getSalesManId().equals(SID)){
+                System.out.println("salesman id already exits");
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
+
     public static SalesMan getSalesMan(String id){
         for (SalesMan SM : salesManList) {
             if (id.equals(SM.getSalesManId())) {
